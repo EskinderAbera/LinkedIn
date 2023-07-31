@@ -2,8 +2,16 @@
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import userJson from "../../../assets/data/user.json";
 import { useLayoutEffect, useState } from "react";
-import { Image, StyleSheet, Pressable, Text, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Pressable,
+  Text,
+  View,
+  ScrollView,
+} from "react-native";
 import { User } from "@/types";
+import ExperienceListItem from "@/components/ExperienceListItem";
 
 export default function UserProfile() {
   const [user, setUser] = useState<User>(userJson);
@@ -18,7 +26,7 @@ export default function UserProfile() {
   }, [user?.name]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <Image source={{ uri: user.backImage }} style={styles.backImage} />
         <View style={styles.headerContent}>
@@ -36,8 +44,16 @@ export default function UserProfile() {
         <Text style={styles.sectionTitle}>About</Text>
         <Text style={styles.paragraph}>{user.about}</Text>
       </View>
-      {/* <View style={styles.experience}></View> */}
-    </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Experience</Text>
+        {user.experience?.map((experience) => (
+          <ExperienceListItem key={experience.id} experience={experience} />
+        ))}
+        {user.experience?.map((experience) => (
+          <ExperienceListItem key={experience.id} experience={experience} />
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
