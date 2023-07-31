@@ -8,7 +8,6 @@ export default function HomeFeedScreen() {
       data={posts}
       renderItem={({ item }) => <PostListItem post={item} />}
       showsVerticalScrollIndicator={false}
-      keyExtractor={(item) => item.id}
       contentContainerStyle={{ gap: 10 }}
     />
   );

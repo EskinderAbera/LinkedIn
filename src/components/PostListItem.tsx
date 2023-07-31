@@ -1,7 +1,8 @@
 import { Post } from "@/types";
 import { Text, View } from "./Themed";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 type PostListItemProps = {
   post: Post;
@@ -25,30 +26,36 @@ function FooterButton({ text, icon }: FooterButtonProps) {
 
 export default function PostListItem({ post }: PostListItemProps) {
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={{ uri: post.author.image }} style={styles.userImage} />
-        <View>
-          <Text style={styles.username}>{post.author.name}</Text>
-          <Text>{post.author.position}</Text>
+    <Link href={`/posts/${post.id}`} asChild>
+      <Pressable style={styles.container}>
+        <View style={styles.header}>
+          <Image source={{ uri: post.author.image }} style={styles.userImage} />
+          <View>
+            <Text style={styles.username}>{post.author.name}</Text>
+            <Text>{post.author.position}</Text>
+          </View>
         </View>
-      </View>
-      <Text style={styles.content}>{post.content}</Text>
-      {post.image && (
-        <Image source={{ uri: post.image }} style={styles.postImage} />
-      )}
-      <View style={styles.footer}>
-        <FooterButton text="Like" icon="thumbs-o-up" />
-        <FooterButton text="Comment" icon="comment-o" />
-        <FooterButton text="Share" icon="share" />
-      </View>
-    </View>
+        <Text style={styles.content}>{post.content}</Text>
+        {post.image && (
+          <Image source={{ uri: post.image }} style={styles.postImage} />
+        )}
+        <View style={styles.footer}>
+          <FooterButton text="Like" icon="thumbs-o-up" />
+          <FooterButton text="Comment" icon="comment-o" />
+          <FooterButton text="Share" icon="share" />
+        </View>
+      </Pressable>
+    </Link>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
+    // make the maxwidth of the container 500 and make it center for web
+    width: "100%",
+    maxWidth: 500,
+    alignSelf: "center",
   },
   header: {
     flexDirection: "row",
