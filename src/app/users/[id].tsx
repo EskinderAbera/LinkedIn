@@ -38,7 +38,6 @@ export default function UserProfile() {
             <Text style={styles.buttonText}>Connect</Text>
           </Pressable>
         </View>
-        {/* </View> */}
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>About</Text>
@@ -46,9 +45,6 @@ export default function UserProfile() {
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Experience</Text>
-        {user.experience?.map((experience) => (
-          <ExperienceListItem key={experience.id} experience={experience} />
-        ))}
         {user.experience?.map((experience) => (
           <ExperienceListItem key={experience.id} experience={experience} />
         ))}
